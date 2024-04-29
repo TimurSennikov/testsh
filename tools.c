@@ -54,19 +54,6 @@ void smartChangeDir(char** argv){
 	}
 }
 
-/*
-"на завтра": разобраться в причине предупреждения в этом коде.
-
-		else if(strncmp(argv[1], "~/", 2) == 0){
-			char* dirName[MAXBUF];
-			argv[1] += 2;
-
-			sprintf(dirName, "/home/%s/%s", getUsername(), argv[1]);
-
-			printf("%s\n", *dirName);
-		}
-*/
-
 void printCmdLine(){
 	char cmdLine[MAXBUF] = "";
 	sprintf(cmdLine, "%s%s%s %s%s%s $ ", USERNAME_COLOR, getUsername(), ANSI_COLOR_RESET, DIRPATH_COLOR, getCurrentDir(), ANSI_COLOR_RESET);
