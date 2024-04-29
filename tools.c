@@ -20,14 +20,19 @@ char* getCurrentDir(){
 	return currentDir;
 }
 
-char* splitUserInput(char* userInput){
-	char* argv[MAXBUF];
-
+char** splitUserInput(char* userInput){
+	char** argv = (char**)malloc(100*sizeof(char*));
+	char* result;
 	int count = 0;
 
 	argv[count] = strtok(userInput, " ");
 	while((argv[++count] = strtok(NULL, " ")) != NULL){}
 	argv[++count] = "0";
+	return argv;
+}
 
-	return *argv;
+void printCmdLine(){
+	char cmdLine[MAXBUF] = "";
+	sprintf(cmdLine, "%s%s%s %s%s%s $ ", USERNAME_COLOR, getUsername(), ANSI_COLOR_RESET, DIRPATH_COLOR, getCurrentDir(), ANSI_COLOR_RESET);
+	write(1, cmdLine, sizeof(cmdLine));
 }

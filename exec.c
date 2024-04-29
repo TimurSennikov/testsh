@@ -1,7 +1,7 @@
 #include "headers/exec.h"
 #include "headers/config.h"
 
-void execArgv(char* argv[MAXBUF]){
+void execArgv(char** argv){
     if(strcmp(argv[0], "cd") != 0){
         int pid = fork();
 
@@ -17,6 +17,6 @@ void execArgv(char* argv[MAXBUF]){
         }
     }
     else{
-        chdir(argv[0]);
+        chdir(argv[1]);
     }
 }

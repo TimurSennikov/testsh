@@ -2,9 +2,8 @@
 #include "headers/exec.h"
 #include "headers/config.h"
 
-char cmdLine[MAXBUF];
 char userInput[MAXBUF];
-char* argv[MAXBUF];
+char** argv;
 
 void cleanup(){
     for(int i = 0; i < sizeof(userInput); i++){
@@ -14,13 +13,16 @@ void cleanup(){
 int main(){
     while(1){
         cleanup();
-
-        sprintf(cmdLine, "%s%s%s %s%s%s $ ", USERNAME_COLOR, getUsername(), ANSI_COLOR_RESET, DIRPATH_COLOR, getCurrentDir(), ANSI_COLOR_RESET);
-
-        write(1, cmdLine, sizeof(cmdLine));
-
+        printCmdLine();
         fgets(userInput, MAXBUF, stdin);
 
-        strcpy(*argv, splitUserInput(userInput));
+        userInput[strcspn(userInput, "\n")] = '\0';
+
+        argv = splitUserInput(userInput);
+
+        if(strlen(userInput) > 0)
+            execArgv(argv);
+        else
+            continue;
     }
 }

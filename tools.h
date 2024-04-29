@@ -1,3 +1,4 @@
 char* getUsername();
 char* getCurrentDir();
-char* splitUserInput();
+char** splitUserInput();
+void printCmdLine();
