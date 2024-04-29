@@ -6,8 +6,6 @@
 #include "headers/config.h"
 #include "headers/main.h"
 
-#define MAXBUF 1024
-
 char* getUsername(){
 	char* username = (char*)malloc(100*sizeof(char*));
 	getlogin_r(username, 100*sizeof(char*));
@@ -29,6 +27,19 @@ char** splitUserInput(char* userInput){
 	while((argv[++count] = strtok(NULL, " ")) != NULL){}
 	argv[++count] = "0";
 	return argv;
+}
+
+void smartChangeDir(char** argv){
+	if(argv[1] && (strcmp(argv[1], "~") < 0 || strcmp(argv[1], "~") > 0) && (strncmp(argv[1], "~", 1) < 0 || strncmp(argv[1], "~", 1) > 0))
+		chdir(argv[1]);
+	else{
+		if(strcmp(argv[1], "~") == 0){
+			// сидишаемся в домашнюю директорию.
+		}
+		else{
+			// убираем из argv[1] ~, добавляем в начало получившейся строки адрес домашней директории и сидишаемся туда (щас не делаю потому что школа скоро).
+		}
+	}
 }
 
 void printCmdLine(){

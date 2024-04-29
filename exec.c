@@ -1,5 +1,6 @@
 #include "headers/exec.h"
 #include "headers/config.h"
+#include "headers/tools.h"
 
 void execArgv(char** argv){
     if(strcmp(argv[0], "cd") != 0){
@@ -17,6 +18,6 @@ void execArgv(char** argv){
         }
     }
     else{
-        chdir(argv[1]);
+        smartChangeDir(argv);
     }
 }
