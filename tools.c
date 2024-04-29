@@ -30,17 +30,42 @@ char** splitUserInput(char* userInput){
 }
 
 void smartChangeDir(char** argv){
-	if(argv[1] && (strcmp(argv[1], "~") < 0 || strcmp(argv[1], "~") > 0) && (strncmp(argv[1], "~", 1) < 0 || strncmp(argv[1], "~", 1) > 0))
-		chdir(argv[1]);
+	if(argv[1] == NULL){
+		char dirName[MAXBUF];
+		sprintf(dirName, "/home/%s", getUsername());
+		chdir(dirName);
+	}
 	else{
-		if(strcmp(argv[1], "~") == 0){
-			// сидишаемся в домашнюю директорию.
-		}
+		if(argv[1] != NULL && (strcmp(argv[1], "~") < 0 || strcmp(argv[1], "~") > 0) && (strncmp(argv[1], "~", 1) < 0 || strncmp(argv[1], "~", 1) > 0))
+			chdir(argv[1]);
 		else{
-			// убираем из argv[1] ~, добавляем в начало получившейся строки адрес домашней директории и сидишаемся туда (щас не делаю потому что школа скоро).
+			if(strcmp(argv[1], "~") == 0 || strcmp(argv[1], "~/") == 0){
+				chdir(argv[1]);
+			}
+			else if(strncmp(argv[1], "~/", 2) == 0){
+				char dirName[MAXBUF];
+				argv[1] += 2;
+
+				sprintf(dirName, "/home/%s/%s", getUsername(), argv[1]);
+
+				chdir(dirName);
+			}
 		}
 	}
 }
+
+/*
+"на завтра": разобраться в причине предупреждения в этом коде.
+
+		else if(strncmp(argv[1], "~/", 2) == 0){
+			char* dirName[MAXBUF];
+			argv[1] += 2;
+
+			sprintf(dirName, "/home/%s/%s", getUsername(), argv[1]);
+
+			printf("%s\n", *dirName);
+		}
+*/
 
 void printCmdLine(){
 	char cmdLine[MAXBUF] = "";
