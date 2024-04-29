@@ -6,8 +6,6 @@
 #include "headers/config.h"
 #include "headers/main.h"
 
-#define MAXBUF 1024
-
 char* getUsername(){
 	char* username = (char*)malloc(100*sizeof(char*));
 	getlogin_r(username, 100*sizeof(char*));
