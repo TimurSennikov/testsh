@@ -1,4 +1,3 @@
-//include header files
 #include <sys/wait.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -6,7 +5,6 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-//change only if you know what you are doing.
 #define ANSI_COLOR_RED     "\x1b[31m"
 #define ANSI_COLOR_GREEN   "\x1b[32m"
 #define ANSI_COLOR_YELLOW  "\x1b[33m"
@@ -15,10 +13,7 @@
 #define ANSI_COLOR_CYAN    "\x1b[36m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
 
-
 #define MAXBUF 1024
-
-//change freely to ANSI_COLOR_* except ANSI_COLOR_RESET
 
 #define USERNAME_COLOR ANSI_COLOR_GREEN
 #define DIRPATH_COLOR ANSI_COLOR_BLUE

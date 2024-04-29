@@ -29,6 +29,31 @@ char** splitUserInput(char* userInput){
 	return argv;
 }
 
+void smartChangeDir(char** argv){
+	if(argv[1] == NULL){
+		char dirName[MAXBUF];
+		sprintf(dirName, "/home/%s", getUsername());
+		chdir(dirName);
+	}
+	else{
+		if(argv[1] != NULL && (strcmp(argv[1], "~") < 0 || strcmp(argv[1], "~") > 0) && (strncmp(argv[1], "~", 1) < 0 || strncmp(argv[1], "~", 1) > 0))
+			chdir(argv[1]);
+		else{
+			if(strcmp(argv[1], "~") == 0 || strcmp(argv[1], "~/") == 0){
+				chdir(argv[1]);
+			}
+			else if(strncmp(argv[1], "~/", 2) == 0){
+				char dirName[MAXBUF];
+				argv[1] += 2;
+
+				sprintf(dirName, "/home/%s/%s", getUsername(), argv[1]);
+
+				chdir(dirName);
+			}
+		}
+	}
+}
+
 void printCmdLine(){
 	char cmdLine[MAXBUF] = "";
 	sprintf(cmdLine, "%s%s%s %s%s%s $ ", USERNAME_COLOR, getUsername(), ANSI_COLOR_RESET, DIRPATH_COLOR, getCurrentDir(), ANSI_COLOR_RESET);
