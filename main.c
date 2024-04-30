@@ -4,6 +4,7 @@
 
 char userInput[MAXBUF];
 char** argv;
+char** history[MAXBUF];
 
 void cleanup(){
     for(int i = 0; i < sizeof(userInput); i++){
@@ -15,6 +16,8 @@ int main(){
         cleanup();
         printCmdLine();
         fgets(userInput, MAXBUF, stdin);
+
+        addToHistory(userInput);
 
         userInput[strcspn(userInput, "\n")] = '\0';
 

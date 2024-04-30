@@ -1,9 +1,10 @@
 #include "headers/exec.h"
 #include "headers/config.h"
 #include "headers/tools.h"
+#include "headers/readCommands.h"
 
 void execArgv(char** argv){
-    if(strcmp(argv[0], "cd") != 0){
+    if(strcmp(argv[0], "cd") != 0 && !checkBuiltInCommands(argv)){
         int pid = fork();
 
         if(pid == 0){
