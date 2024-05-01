@@ -10,6 +10,12 @@
 int historyCount = 0;
 char** historyDup[MAXBUF];
 
+char* getHostname(){
+	char* hostname = (char*)malloc(MAXBUF*sizeof(char*));
+	gethostname(hostname, MAXBUF*sizeof(char*));
+	return hostname;
+}
+
 char* getUsername(){
 	char* username = (char*)malloc(100*sizeof(char*));
 	getlogin_r(username, 100*sizeof(char*));
@@ -50,13 +56,16 @@ void smartChangeDir(char** argv){
 		chdir(dirName);
 	}
 	else{
-		if(argv[1] != NULL && (strcmp(argv[1], "~") < 0 || strcmp(argv[1], "~") > 0) && (strncmp(argv[1], "~", 1) < 0 || strncmp(argv[1], "~", 1) > 0))
-			chdir(argv[1]);
+		if(argv[1] != NULL && (strcmp(argv[1], "~") < 0 || strcmp(argv[1], "~") > 0) && (strncmp(argv[1], "~", 1) < 0 || strncmp(argv[1], "~", 1) > 0)){
+			if(chdir(argv[1]) == -1)
+				perror("cd");
+		}
 		else{
 			if(strcmp(argv[1], "~") == 0 || strcmp(argv[1], "~/") == 0){
 				char path[MAXBUF];
 				sprintf(path, "/home/%s", getUsername());
-				chdir(path);
+				if(chdir(path) == -1)
+					perror("cd");
 			}
 			else if(strncmp(argv[1], "~/", 2) == 0){
 				char dirName[MAXBUF];
@@ -64,7 +73,8 @@ void smartChangeDir(char** argv){
 
 				sprintf(dirName, "/home/%s/%s", getUsername(), argv[1]);
 
-				chdir(dirName);
+				if(chdir(dirName) == -1)
+					perror("cd");
 			}
 		}
 	}
@@ -72,6 +82,6 @@ void smartChangeDir(char** argv){
 
 void printCmdLine(){
 	char cmdLine[MAXBUF] = "";
-	sprintf(cmdLine, "%s%s%s %s%s%s $ ", USERNAME_COLOR, getUsername(), ANSI_COLOR_RESET, DIRPATH_COLOR, getCurrentDir(), ANSI_COLOR_RESET);
+	sprintf(cmdLine, "%s%s@%s%s %s%s%s %s%s%s ", USERNAME_COLOR, getUsername(), getHostname(), ANSI_COLOR_RESET, DIRPATH_COLOR, getCurrentDir(), ANSI_COLOR_RESET, SIGN_COLOR, SIGN, ANSI_COLOR_RESET);
 	write(1, cmdLine, sizeof(cmdLine));
 }
