@@ -17,4 +17,13 @@
 
 #define USERNAME_COLOR ANSI_COLOR_GREEN
 #define DIRPATH_COLOR ANSI_COLOR_BLUE
+#define SIGN_COLOR ANSI_COLOR_BLUE
 #define WARNING_COLOR ANSI_COLOR_RED
+
+#define SIGN "$"
+
+#define VERSION 6
+
+// not recommended to be changed. ---
+#define GITHUB_URL "https://github.com/TimurSennikov/testsh"
+// ---

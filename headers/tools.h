@@ -1,3 +1,4 @@
+char* getHostname();
 char* getUsername();
 char* getCurrentDir();
 char** splitUserInput();
