@@ -24,7 +24,15 @@ char* getUsername(){
 
 char* getCurrentDir(){
 	char* currentDir = (char*)malloc(100*sizeof(char*));
+	char* homePath = (char*)malloc(100*sizeof(char*));
 	getcwd(currentDir, 100*sizeof(char*));
+	sprintf(homePath, "/home/%s", getUsername());
+	if(strcmp(currentDir, homePath) == 0)
+		sprintf(currentDir, "~/");
+	else if(strncmp(homePath, currentDir, strlen(homePath)) == 0){
+		currentDir = currentDir + (strlen(homePath) - 1);
+		currentDir[0] = *"~";
+	}
 	return currentDir;
 }
 
