@@ -22,7 +22,7 @@
 
 #define SIGN "$"
 
-#define VERSION 6
+#define VERSION 7
 
 // not recommended to be changed. ---
 #define GITHUB_URL "https://github.com/TimurSennikov/testsh"
