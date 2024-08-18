@@ -47,7 +47,7 @@ char** splitUserInput(char* userInput){
 	return argv;
 }
 
-void addToHistory(char* text){
+void addToHistory(char* text){ // не работает если лог файл не создан, убрал за непотребностью
 	if(strlen(text) < 2)
 		return;
 	char* path;

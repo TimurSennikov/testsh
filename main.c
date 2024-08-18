@@ -17,7 +17,9 @@ int main(){
         printCmdLine();
         fgets(userInput, MAXBUF, stdin);
 
-        addToHistory(userInput);
+	if(strlen(userInput) == 0){printf("\n");exit(0);}
+
+        //addToHistory(userInput);
 
         userInput[strcspn(userInput, "\n")] = '\0';
 

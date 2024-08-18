@@ -16,6 +16,9 @@ int checkBuiltInCommands(char** argv){
         displayHelp();
         return 1;
     }
+    else if(strcmp(argv[0], "exit") == 0){
+	exit(0);
+    }
 	return 0;
 }
 
